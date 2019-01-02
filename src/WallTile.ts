@@ -26,18 +26,23 @@ export default class WallTile extends Tile {
 			this.spriteCoordinates = [0, 0]
 			return
 		}
-		// If this is the only wall in the neighborhood: draw a column
-		if (neighborhood.filter(Boolean).length === 1) {
+		// If there are no ortogonal tiles: draw a column
+		if (!n && !w && !e && !s) {
 			this.spriteCoordinates = getNthTile(0)
 			return
 		}
-		// Only neighbor is N: slim wall end
+		// Only neighbor is N: wide wall end
 		if (neighborhood.filter(Boolean).length === 2 && n) {
-			this.spriteCoordinates = getNthTile(1)
+			this.spriteCoordinates = getNthTile(2)
+			return
+		}
+		// If there are S and N walls but nothing on the sides
+		if (n && s && !e && ! w) {
+			this.spriteCoordinates = getNthTile(13)
 			return
 		}
 		// If there is a wall to the north other than straight north but nothing on the sides: wide wall end
-		if (n && !w && !e && (ne || nw)) {
+		if (n && !w && !e && !s) {
 			this.spriteCoordinates = getNthTile(2)
 			return
 		}
@@ -54,21 +59,6 @@ export default class WallTile extends Tile {
 		// Tile to north and east but not west
 		if (n && e && !w) {
 			this.spriteCoordinates = getNthTile(7)
-			return
-		}
-		// No tiles to north, slim wall. Both west and east
-		if (!n && w && e) {
-			this.spriteCoordinates = getNthTile(4)
-			return
-		}
-		// No tiles to north, slim wall. West
-		if (!n && w) {
-			this.spriteCoordinates = getNthTile(5)
-			return
-		}
-		// No tiles to north, slim wall. East
-		if (!n && e) {
-			this.spriteCoordinates = getNthTile(8)
 			return
 		}
 		// South, no east or west
@@ -89,6 +79,21 @@ export default class WallTile extends Tile {
 		// South, both west and east
 		if (s && w && e) {
 			this.spriteCoordinates = getNthTile(12)
+			return
+		}
+		// No tiles to north or south, slim wall. Both west and east
+		if (!n && w && e) {
+			this.spriteCoordinates = getNthTile(4)
+			return
+		}
+		// No tiles to north or south, slim wall. West
+		if (!n && w) {
+			this.spriteCoordinates = getNthTile(5)
+			return
+		}
+		// No tiles to north or south, slim wall. East
+		if (!n && e) {
+			this.spriteCoordinates = getNthTile(8)
 			return
 		}
 
