@@ -9,7 +9,7 @@ function getNthTile(n: number): [number, number] {
 
 export default class WallTile extends Tile {
 	spriteCoordinates: [number, number] = [0, 0]; // coordinates of the tile on the sprite sheet
-	getSprite(ctx: CanvasRenderingContext2D, neighborhood: boolean[]) {
+	getSprite(neighborhood: boolean[]) {
 		const [nw, n, ne, w, self, e, sw, s, se] = neighborhood;
 
 		// If it is a floor tile: draw blank

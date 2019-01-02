@@ -1,11 +1,13 @@
 import State from "./State";
 import Tile from "./Tile";
+import Map from "./Map";
 
 
 export default function drawState(state: State, ctx: CanvasRenderingContext2D) {
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-	const character = new Tile('Sprite-0002.png', [0, 0])
-	character.draw(ctx)
+	const map = new Map()
+	const tiles = map.generateTiles()
+	tiles.forEach(tile => tile.draw(ctx))
 }
