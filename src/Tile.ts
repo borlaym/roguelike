@@ -1,5 +1,5 @@
 export default class Tile {
-	private image: Promise<HTMLImageElement>;
+	protected image: Promise<HTMLImageElement>;
 	constructor(
 		public readonly fileName: string,
 		public readonly position: [number, number]
