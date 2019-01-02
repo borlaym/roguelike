@@ -15,7 +15,7 @@ export default class Map {
 		this.layout.forEach((row, rowIndex) => {
 			row.forEach((self, columnIndex) => {
 				const wallTile = new WallTile('Wall-Sheet.png', [columnIndex, rowIndex])
-				const northRow = this.layout[rowIndex + 1] || []
+				const northRow = this.layout[rowIndex - 1] || []
 				const southRow = this.layout[rowIndex + 1] || []
 				wallTile.getSprite([
 					Boolean(northRow[columnIndex-1]), Boolean(northRow[columnIndex]), Boolean(northRow[columnIndex + 1]),

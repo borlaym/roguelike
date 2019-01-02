@@ -3,13 +3,17 @@ import Tile from "./Tile";
 const TILESET_WIDTH = 16 * 3
 const TILE_POSITION_IN_TILESET = [16, 16]
 
+const TILE_SCALE = 5
+
 function getNthTile(n: number): [number, number] {
 	return [n * TILESET_WIDTH + TILE_POSITION_IN_TILESET[0], TILE_POSITION_IN_TILESET[1]]
 }
 
 export default class WallTile extends Tile {
 	spriteCoordinates: [number, number] = [0, 0]; // coordinates of the tile on the sprite sheet
+	neighborhood: boolean[] = []
 	getSprite(neighborhood: boolean[]) {
+		this.neighborhood = neighborhood
 		const [nw, n, ne, w, self, e, sw, s, se] = neighborhood;
 
 		// If it is a floor tile: draw blank
@@ -87,6 +91,8 @@ export default class WallTile extends Tile {
 			this.spriteCoordinates = getNthTile(12)
 			return
 		}
+
+		console.error('Sprite didnt match', neighborhood)
 	}
 
 	draw(ctx: CanvasRenderingContext2D) {
@@ -94,8 +100,8 @@ export default class WallTile extends Tile {
 			image,
 			this.spriteCoordinates[0], this.spriteCoordinates[1],
 			16, 16,
-			this.position[0] * 16, this.position[1] * 16,
-			16, 16
+			this.position[0] * 16 * TILE_SCALE, this.position[1] * 16 * TILE_SCALE,
+			16 * TILE_SCALE, 16 * TILE_SCALE
 			)
 		)
 	}

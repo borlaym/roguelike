@@ -9,5 +9,6 @@ export default function drawState(state: State, ctx: CanvasRenderingContext2D) {
 
 	const map = new Map()
 	const tiles = map.generateTiles()
+	console.log(tiles)
 	tiles.forEach(tile => tile.draw(ctx))
 }
